@@ -9,8 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.mathiasuy</groupId>
-	<artifactId>ejemplo-springboot-jpa</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<artifactId>petshopp</artifactId>
+	<version>1.0.0</version>
+	
+	<packaging>war</packaging>
+	
 	<name>ejemplo-springboot-jpa</name>
 	<description>Ejercicio sobre JPA, Spring boot, Hibernate y MySql</description>
 
@@ -106,6 +109,13 @@
 			        </dependency>
 			    </dependencies>
 			</plugin>			
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-war-plugin</artifactId>
+			  <configuration>
+			    <failOnMissingWebXml>false</failOnMissingWebXml>
+			  </configuration>
+			</plugin>
 		</plugins>
 	</build>
 
