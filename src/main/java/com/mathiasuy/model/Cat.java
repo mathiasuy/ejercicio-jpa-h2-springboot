@@ -1,5 +1,7 @@
 package com.mathiasuy.model;
 
+import java.util.stream.Collectors;
+
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Transient;
@@ -8,6 +10,7 @@ import com.mathiasuy.requests.CatRequest;
 import com.mathiasuy.requests.PetRequest;
 import com.mathiasuy.responses.CatResponse;
 import com.mathiasuy.responses.PetResponse;
+import com.mathiasuy.responses.ToyResponse;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
@@ -50,7 +53,10 @@ public class Cat extends Pet{
 	@Transient
 	@Override
 	public PetResponse getResponse() {
-		return new CatResponse(super.getId(), super.getName(), super.getAge(), getHair());
+		
+		return new CatResponse(super.getId(), super.getName(), super.getAge(), getHair(),
+				this.getToys().stream().map(t -> new ToyResponse(t.getName(), t.getDescription())).collect(Collectors.toList())
+				);
 	}
 	
 }

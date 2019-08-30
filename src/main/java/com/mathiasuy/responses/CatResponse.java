@@ -1,11 +1,13 @@
 package com.mathiasuy.responses;
 
+import java.util.List;
+
 public class CatResponse extends PetResponse {
 
 	private String hair;
 
-	public CatResponse(Long id, String name, int age, String hair) {
-		super(id, name, age);
+	public CatResponse(Long id, String name, int age, String hair, List<ToyResponse> list) {
+		super(id, name, age,list);
 		this.hair = hair;
 	}
 

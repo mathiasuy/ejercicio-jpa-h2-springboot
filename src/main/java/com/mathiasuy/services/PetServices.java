@@ -10,6 +10,7 @@ import com.mathiasuy.exceptions.PetNotFound;
 import com.mathiasuy.model.Cat;
 import com.mathiasuy.model.Dog;
 import com.mathiasuy.model.Pet;
+import com.mathiasuy.model.Toy;
 import com.mathiasuy.repository.IPetRepository;
 import com.mathiasuy.requests.CatRequest;
 import com.mathiasuy.requests.DogRequest;
@@ -38,6 +39,7 @@ public class PetServices implements IPetServices {
 			CatRequest catRequest = (CatRequest)petRequest;
 			pet = new Cat(catRequest.getName(), catRequest.getAge(), catRequest.getHair());
 		} 
+		pet.setToys(petRequest.getToys().stream().map(t -> new Toy(t.getName(), t.getDescription())).collect(Collectors.toList()));
 		petRepository.save(pet);
 		return pet.getId();
 	}

@@ -1,11 +1,19 @@
 package com.mathiasuy.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -25,7 +33,10 @@ public abstract class Pet implements java.io.Serializable {
 	private Long id;
 	private String name;
 	private int age;
-
+	@OneToMany(targetEntity=Toy.class, fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
+	@ElementCollection(targetClass = Toy.class)
+	private List<Toy> toys = new ArrayList<>();
+	
 	public Pet() {
 		super();
 	}
@@ -36,6 +47,10 @@ public abstract class Pet implements java.io.Serializable {
 		this.age = age;
 	}
 
+	public void addToy(Toy toy) {
+		this.toys.add(toy);
+	}
+	
 	@Id
 	@GeneratedValue
 	@Column(name = "id", unique = true, nullable = false)
@@ -45,6 +60,16 @@ public abstract class Pet implements java.io.Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	@Column(name = "toys", nullable = false)
+	@ElementCollection(targetClass = Toy.class)	
+	public List<Toy> getToys() {
+		return toys;
+	}
+
+	public void setToys(List<Toy> toys) {
+		this.toys = toys;
 	}
 
 	@Column(name = "name", nullable = false, length = 15)
@@ -76,6 +101,7 @@ public abstract class Pet implements java.io.Serializable {
 	public void setParameters(PetRequest pet) {
 		this.setAge(pet.getAge());
 		this.setName(pet.getName());
+		this.setToys(pet.getToys().stream().map(t-> new Toy(t.getName(), t.getDescription())).collect(Collectors.toList()));
 	}
 
 }

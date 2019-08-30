@@ -1,5 +1,7 @@
 package com.mathiasuy.requests;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -19,6 +21,7 @@ public abstract class PetRequest {
 	private Long id;
 	private String name;
 	private int age;
+	private List<ToyRequest> toys;
 	
 	public PetRequest() {
 		super();
@@ -41,6 +44,11 @@ public abstract class PetRequest {
 	}
 
 	@JsonProperty
+	public List<ToyRequest> getToys(){
+		return this.toys;
+	}
+	
+	@JsonProperty
 	public String getName() {
 		return name;
 	}
@@ -57,7 +65,7 @@ public abstract class PetRequest {
 	public void setAge(int age) {
 		this.age = age;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "PetRequest [id=" + id + ", name=" + name + ", age=" + age + "]";
