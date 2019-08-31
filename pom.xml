@@ -114,6 +114,7 @@
 			  <artifactId>maven-war-plugin</artifactId>
 			  <configuration>
 			    <failOnMissingWebXml>false</failOnMissingWebXml>
+				<executable>run.sh</executable>
 			  </configuration>
 			</plugin>
 		</plugins>
