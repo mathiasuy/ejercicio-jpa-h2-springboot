@@ -12,6 +12,7 @@ import com.mathiasuy.model.Dog;
 import com.mathiasuy.model.Pet;
 import com.mathiasuy.model.Toy;
 import com.mathiasuy.repository.IPetRepository;
+import com.mathiasuy.repository.IToyRepository;
 import com.mathiasuy.requests.CatRequest;
 import com.mathiasuy.requests.DogRequest;
 import com.mathiasuy.requests.PetRequest;
@@ -22,6 +23,9 @@ public class PetServices implements IPetServices {
 
 	@Autowired
 	private IPetRepository petRepository;
+	
+	@Autowired
+	private IToyRepository toyRepository;
 	
 	@Override
 	public PetResponse getPet(Long id) throws PetNotFound {
@@ -40,6 +44,12 @@ public class PetServices implements IPetServices {
 			pet = new Cat(catRequest.getName(), catRequest.getAge(), catRequest.getHair());
 		} 
 		pet.setToys(petRequest.getToys().stream().map(t -> new Toy(t.getName(), t.getDescription())).collect(Collectors.toList()));
+		
+		pet.getToys().forEach(t -> {
+			if (!toyRepository.existsById(t.getName())) {
+				toyRepository.save(t);
+			}
+		});
 		petRepository.save(pet);
 		return pet.getId();
 	}

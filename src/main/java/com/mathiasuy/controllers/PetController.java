@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mathiasuy.exceptions.PetNotFound;
+import com.mathiasuy.exceptions.ServicesException;
 import com.mathiasuy.requests.PetRequest;
 import com.mathiasuy.responses.PetResponse;
 import com.mathiasuy.services.IPetServices;
@@ -30,7 +31,7 @@ public class PetController {
 	 * @param age
 	 * @return
 	 */
-	@PostMapping("/add")
+	@PostMapping("/pet/add")
 	public Long addPet(@RequestBody PetRequest pet) {
 		return petServices.addPet(pet);
 	}
@@ -41,8 +42,8 @@ public class PetController {
 	 * @return
 	 * @throws PetNotFound 
 	 */
-	@GetMapping("/get/{id}")
-	public PetResponse getPet(@PathVariable("id") Long id) throws PetNotFound {
+	@GetMapping("/pet/get/{id}")
+	public PetResponse getPet(@PathVariable("id") Long id) throws ServicesException {
 		return petServices.getPet(id);
 	}
 	
@@ -52,8 +53,8 @@ public class PetController {
 	 * @return
 	 * @throws PetNotFound 
 	 */
-	@DeleteMapping("/delete/{id}")
-	public void deletePet(@PathParam("id") Long id) throws PetNotFound {
+	@DeleteMapping("/pet/delete/{id}")
+	public void deletePet(@PathParam("id") Long id) throws ServicesException {
 		petServices.deletePet(id);
 	}
 	
@@ -63,8 +64,8 @@ public class PetController {
 	 * @return
 	 * @throws PetNotFound 
 	 */
-	@PutMapping("/update")
-	public void updatePet(@RequestBody PetRequest pet) throws PetNotFound {
+	@PutMapping("/pet/update")
+	public void updatePet(@RequestBody PetRequest pet) throws ServicesException {
 		petServices.updatePet(pet);
 	}
 	
@@ -75,8 +76,8 @@ public class PetController {
 	 * @return
 	 * @throws PetNotFound 
 	 */
-	@GetMapping("/list")
-	public List<PetResponse> listAll() throws PetNotFound {
+	@GetMapping("/pet/list")
+	public List<PetResponse> listAll() {
 		return petServices.listAllPets();
 	}
 	

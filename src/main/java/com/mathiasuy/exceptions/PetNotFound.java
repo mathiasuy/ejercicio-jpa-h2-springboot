@@ -1,6 +1,6 @@
 package com.mathiasuy.exceptions;
 
-public class PetNotFound extends Exception {
+public class PetNotFound extends ServicesException {
 	
 	/**
 	 * 
