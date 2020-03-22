@@ -11,9 +11,7 @@
 	<groupId>com.mathiasuy</groupId>
 	<artifactId>petshopp</artifactId>
 	<version>1.0.0</version>
-	
-	<packaging>war</packaging>
-	
+		
 	<name>ejemplo-springboot-jpa</name>
 	<description>Ejercicio sobre JPA, Spring boot, Hibernate y MySql</description>
 
